@@ -39,6 +39,8 @@ curl "http://ewsapi.teneodigital.com/companies"
   -H "Authorization: <API KEY>"
 ```
 
+<aside class="warning">If you're not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -167,7 +169,7 @@ This endpoint retrieves a specific company.
 
 `GET http://ewsapi.teneodigital.com/company?id=<id>`
 
-### URL Parameters
+### GET Parameters
 
 Parameter | Description 
 --------- | -----------
@@ -188,3 +190,29 @@ company_url | URL of the company's website
 profile | A text profile of the company
 risk_history | A dictionary that gives the risk trejectory of this company
 indexname | Name of the index this company belongs to, e.g., "S&P 500"
+
+## Get a company's financial data
+
+### HTTP Request
+
+`GET http://ewsapi.teneodigital.com/financial_data?id=<id>&data_type=<data_type>`
+
+### GET Parameters
+
+Parameter | Description 
+--------- | -----------
+id | The id of the company 
+data_type | Data type being queried. See below for available data types. 
+start_time <optional - will default to earliest available>| Start time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
+end_time <optional - will default to latest available> | End time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
+
+### Data types available
+
+Data type | Description 
+--------- | -----------
+price | Price of stock
+one_month_total_return | 1 Month Total Shareholder Return
+three_month_total_return | 3 Month Total Shareholder Return 
+ten_month_total_return | 10 Month Total Shareholder Return 
+one_year_total_return | 1 Year Total Shareholder Return
+three_year_total_return | 3 Year Total Shareholder Return
