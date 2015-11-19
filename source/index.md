@@ -1,14 +1,14 @@
 ---
-title: API Reference
+title: Teneo EWS API Reference
 
-language_tabs:
+<!-- language_tabs:
   - shell
   - ruby
-  - python
+  - python -->
 
-toc_footers:
+<!-- toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a> -->
 
 includes:
   - errors
@@ -18,67 +18,25 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+This is the proposed API for Teneo EWS. Feel free to give us feedback or request changes. 
 
 # Authentication
 
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+All api requests need to be authorized with an API key, without which, an error will be returned. 
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
 </aside>
 
-# Kittens
+<aside class="warning">If you're not using an API key, note that the server will return a 403 Forbidden error.</aside>
+# Companies
 
-## Get All Kittens
+## Get All Companies
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl "http://ewsapi.teneodigital.com/companies"
+  -H "Authorization: <API KEY>"
 ```
 
 > The above command returns JSON structured like this:
@@ -87,82 +45,146 @@ curl "http://example.com/api/kittens"
 [
   {
     "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+    "ticker": "NYSE:AAPL",
+    "name": "Apple, Inc.",
+    "risk": 0.1
   },
   {
     "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "ticker": "NYSE:IBM",
+    "name": "International Business Machines",
+    "risk": 0.3
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all companies to be displayed in the dashboard.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET http://ewsapi.teneodigital.com/companies`
 
-### Query Parameters
+### Response Paramaters
 
-Parameter | Default | Description
+Parameter | Sample Value | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+id | 1 | The unique identifier for the company, that will not change
+ticker | "NYSE:AAPL" | The company's ticker
+name | "Apple, Inc." | The company's name
+risk | 0.1 | a decimal value between 0.0 and 1.0, where 0.0 is low risk and 1.0 is high risk
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Get a Specific Company
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl "http://ewsapi.teneodigital.com/company?id=2"
+  -H "Authorization: <API KEY>"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+    "id": 2,
+    "ticker": "NYSE:IBM",
+    "name": "International Business Machines",
+    "risk": 0.3,
+    "industry" : "Information Technology Services",
+    "comps" : [ 
+        1,
+        3,
+        4
+    ],
+    "iss_data" : {
+        "AuditRank" : "2",
+        "companyid" : "77251",
+        "MeetingDate_Latest" : "Apr 28 2015 10:00AM",
+        "NumDircOverBoarded" : "0",
+        "MedianNEDPay" : "307980",
+        "NumWomanOnBoard" : "3",
+        "ShrdPropMoreThan40PctYN" : "No",
+        "NumPartyTrans" : "0",
+        "ResignationReq" : "Bylaws-Charter",
+        "MajorityVoteRequirement" : "By-laws",
+        "PTA" : "22",
+        "MSOP_AgainstRate" : "6.4",
+        "CompensationRank" : "7",
+        "NumMinority" : "2",
+        "DirAgeOver72" : "0",
+        "ResponseToOutsVoteYN" : "Yes",
+        "NumEthnicUnknown" : "0",
+        "BoardRank" : "4",
+        "RDA" : "-31",
+        "ShareholderRank" : "3",
+        "AvgDirAge" : "64",
+        "NumDirWithPartyTrans" : "0",
+        "DirRecMoreThan10PctAgainst" : "0",
+        "ResponseToCastVoteYN" : "Yes",
+        "NumNEDMedianPayCalc" : "12",
+        "QSUpdateDate" : "Mar 27 2015  2:15PM",
+        "MOM" : "1.03",
+        "OverallQSRank" : "5"
+    },
+    "company_url" : "http://www.ibm.com",
+    "profile" : "International Business Machines Corp is an Information Technology (IT) company. It creates business value for clients and solves business problems through integrated solutions that leverage information technology & knowledge of business processes.",
+    "risk_history" : {
+        "2015-05-08T00:00:00.000Z": 0.1, 
+        "2015-05-07T00:00:00.000Z": 0.1, 
+        "2015-05-06T00:00:00.000Z": 0.1, 
+        "2015-05-05T00:00:00.000Z": 0.1, 
+        "2015-05-04T00:00:00.000Z": 0.1, 
+        "2015-05-01T00:00:00.000Z": 0.1, 
+        "2015-04-30T00:00:00.000Z": 0.1, 
+        "2015-04-29T00:00:00.000Z": 0.1, 
+        "2015-04-28T00:00:00.000Z": 0.1, 
+        "2015-04-27T00:00:00.000Z": 0.1, 
+        "2015-05-20T00:00:00.000Z": 0.1, 
+        "2015-05-19T00:00:00.000Z": 0.1, 
+        "2015-05-18T00:00:00.000Z": 0.1, 
+        "2015-05-15T00:00:00.000Z": 0.7, 
+        "2015-05-14T00:00:00.000Z": 0.7, 
+        "2015-05-13T00:00:00.000Z": 0.7, 
+        "2015-05-12T00:00:00.000Z": 0.7, 
+        "2015-05-11T00:00:00.000Z": 0.7, 
+        "2015-05-08T00:00:00.000Z": 0.7, 
+        "2015-05-07T00:00:00.000Z": 0.7, 
+        "2015-05-26T00:00:00.000Z": 0.7, 
+        "2015-05-26T00:00:00.000Z": 0.7, 
+        "2015-05-26T00:00:00.000Z": 0.7, 
+        "2015-05-26T00:00:00.000Z": 0.7, 
+        "2015-05-26T00:00:00.000Z": 0.7, 
+        "2015-05-26T00:00:00.000Z": 0.7
+    },
+    "indexname" : "S&P 500"
 }
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint retrieves a specific company.
 
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+<aside class="warning">If you're not using an API key, note that the server will return a 403 Forbidden error.</aside>
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET http://ewsapi.teneodigital.com/company?id=<id>`
 
 ### URL Parameters
 
-Parameter | Description
+Parameter | Description 
 --------- | -----------
-ID | The ID of the kitten to retrieve
+id | The id of the company 
 
+### Response Parameters
+
+Parameter | Description 
+--------- | -----------
+id | The id of the company 
+ticker | Ticker of the company
+name | Name of the company
+risk | A decimal value between 0.0 and 1.0, where 0.0 is low risk and 1.0 is high risk
+industry | The industry this company belongs to
+comps | An array of company ids, where each one corresponds to a 'comparable' or 'peer' of this company
+iss_data | A dictionary of governance-related ISS data
+company_url | URL of the company's website
+profile | A text profile of the company
+risk_history | A dictionary that gives the risk trejectory of this company
+indexname | Name of the index this company belongs to, e.g., "S&P 500"
