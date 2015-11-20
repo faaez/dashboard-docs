@@ -18,7 +18,7 @@ search: true
 
 # Introduction
 
-This is the proposed API for Teneo EWS. Feel free to give us feedback or request changes. 
+This is the proposed API for Teneo EWS. Please do give us feedback or request changes as appropriate. 
 
 # Authentication
 
