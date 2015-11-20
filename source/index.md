@@ -363,7 +363,7 @@ ebitda_margin_annual | Annual EBITDA Margin | Annual
 
 ##Get Precedent Attacks
 
-## Get past attacks on companies that looked similar to the company's situation today.
+Get past attacks on companies that looked similar to the company's situation today.
 
 ```shell
 curl "http://ewsapi.teneodigital.com/precedents?id=2" -H "Authorization: <API KEY>" 
