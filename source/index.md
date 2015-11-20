@@ -329,9 +329,9 @@ Post these parameters as json to this endpoint. Remember to set the 'Content-Typ
 Parameter | Description 
 --------- | -----------
 id | The id of the company 
-data_types <optional - will default to all data types available> | JSON array of data types being queried. See below for all available data types.
-start_time <optional - will default to earliest available>| Start time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
-end_time <optional - will default to latest available> | End time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
+data_types (optional - will default to all data types available) | JSON array of data types being queried. See below for all available data types.
+start_time (optional - will default to earliest available)| Start time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
+end_time (optional - will default to latest available) | End time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
 
 
 ### Data types available
