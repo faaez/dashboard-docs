@@ -363,8 +363,6 @@ ebitda_margin_annual | Annual EBITDA Margin | Annual
 
 ##Get Precedent Attacks
 
-Get past attacks on companies that looked similar to the company's situation today.
-
 ```shell
 curl "http://ewsapi.teneodigital.com/precedents?id=2" -H "Authorization: <API KEY>" 
 ```
@@ -411,8 +409,6 @@ risk | 0.8 | a decimal value between 0.0 and 1.0, where 0.0 is low likelihood an
 
 
 ##Get Likely Attackers
-
-## Get a company's likely attackers
 
 ```shell
 curl "http://ewsapi.teneodigital.com/likely_attackers?id=2" -H "Authorization: <API KEY>" 
