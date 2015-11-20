@@ -373,13 +373,13 @@ curl "http://ewsapi.teneodigital.com/precedents?id=2" -H "Authorization: <API KE
 [
   {
     "company_id" : 2,
-    "date" : "2012-03-01"
+    "date" : "2012-03-01",
     "attacker_name": "Pershing Square Capital",
     "similarity": 0.7
   },
   {
     "company_id" : 1,
-    "date" : "2012-08-01"
+    "date" : "2012-08-01",
     "attacker_name": "Icahn Enterprises",
     "similarity": 0.6
   }
