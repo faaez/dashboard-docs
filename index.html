@@ -4,18 +4,13 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Teneo EWS API Reference</title>
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
       <script src="javascripts/all.js" type="text/javascript"></script>
 
-      <script>
-        $(function() {
-          setupLanguages(["shell","ruby","python"]);
-        });
-      </script>
   </head>
 
   <body class="index">
@@ -27,154 +22,188 @@
     </a>
     <div class="tocify-wrapper">
       <img src="images/logo.png" />
-        <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-        </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
         <ul class="search-results"></ul>
       <div id="toc">
       </div>
-        <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
-        </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+        <h1 id="introduction">Introduction</h1>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>This is the proposed API for Teneo EWS. Feel free to give us feedback or request changes. </p>
 
-<p>This example API documentation page was created with <a href="http://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h1 id="authentication">Authentication</h1>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
+<p>All api requests need to be authorized with an API key, without which, an error will be returned. </p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight shell"><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<aside class="notice">
+You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
+</aside>
+
+<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+<h1 id="companies">Companies</h1>
+
+<h2 id="get-all-companies">Get All Companies</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/companies"</span>
+  -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span>
 </code></pre>
 
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
-
-<p><aside class="notice">
-You must replace <code class="prettyprint">meowmeowmeow</code> with your personal API key.
-</aside></p>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre><code class="highlight shell">curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre><code class="highlight json"><span class="p">[</span><span class="w">
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NYSE:AAPL"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apple, Inc."</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"risk"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NYSE:IBM"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"International Business Machines"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"risk"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">GET http://example.com/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<p>This endpoint retrieves all companies to be displayed in the dashboard.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/companies</code></p>
+
+<h3 id="response-paramaters">Response Paramaters</h3>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
+<th>Sample Value</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>id</td>
+<td>1</td>
+<td>The unique identifier for the company, that will not change</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>ticker</td>
+<td>&ldquo;NYSE:AAPL&rdquo;</td>
+<td>The company&rsquo;s ticker</td>
+</tr>
+<tr>
+<td>name</td>
+<td>&ldquo;Apple, Inc.&rdquo;</td>
+<td>The company&rsquo;s name</td>
+</tr>
+<tr>
+<td>risk</td>
+<td>0.1</td>
+<td>a decimal value between 0.0 and 1.0, where 0.0 is low risk and 1.0 is high risk</td>
 </tr>
 </tbody></table>
 
-<p><aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside></p>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight shell">curl <span class="s2">"http://example.com/api/kittens/3"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<h2 id="get-a-specific-company">Get a Specific Company</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/company?id=2"</span>
+  -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span>
 </code></pre>
 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre><code class="highlight json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NYSE:IBM"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"International Business Machines"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"risk"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"industry"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Information Technology Services"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"comps"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> 
+        </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="mi">4</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"iss_data"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"AuditRank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"companyid"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"77251"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"MeetingDate_Latest"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Apr 28 2015 10:00AM"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"NumDircOverBoarded"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"MedianNEDPay"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"307980"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"NumWomanOnBoard"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ShrdPropMoreThan40PctYN"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"No"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"NumPartyTrans"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ResignationReq"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Bylaws-Charter"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"MajorityVoteRequirement"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"By-laws"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"PTA"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"22"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"MSOP_AgainstRate"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"6.4"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"CompensationRank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"NumMinority"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"DirAgeOver72"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ResponseToOutsVoteYN"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Yes"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"NumEthnicUnknown"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"BoardRank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"RDA"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"-31"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ShareholderRank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"AvgDirAge"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"64"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"NumDirWithPartyTrans"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"DirRecMoreThan10PctAgainst"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"ResponseToCastVoteYN"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Yes"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"NumNEDMedianPayCalc"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"QSUpdateDate"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Mar 27 2015  2:15PM"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"MOM"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1.03"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"OverallQSRank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"company_url"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.ibm.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"profile"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"International Business Machines Corp is an Information Technology (IT) company. It creates business value for clients and solves business problems through integrated solutions that leverage information technology &amp; knowledge of business processes."</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"risk_history"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"2015-05-08T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-07T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-06T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-05T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-04T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-01T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-04-30T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-04-29T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-04-28T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-04-27T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-20T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-19T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-18T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-15T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-14T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-13T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-12T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-11T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-08T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-07T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"indexname"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"S&amp;P 500"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<p>This endpoint retrieves a specific company.</p>
 
-<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside></p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/company?id=&lt;id&gt;</code></p>
+
+<h3 id="get-parameters">GET Parameters</h3>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -182,13 +211,252 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the cat to retrieve</td>
+<td>id</td>
+<td>The id of the company</td>
 </tr>
 </tbody></table>
 
-          <h1 id='errors'>Errors</h1>
-<p><aside class="notice">This error section is stored in a separate file in <code class="prettyprint">includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the <code class="prettyprint">includes</code> folder and add them to the top of your <code class="prettyprint">index.md</code>&rsquo;s frontmatter. Files are included in the order listed.</aside></p>
+<h3 id="response-parameters">Response Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The id of the company</td>
+</tr>
+<tr>
+<td>ticker</td>
+<td>Ticker of the company</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Name of the company</td>
+</tr>
+<tr>
+<td>risk</td>
+<td>A decimal value between 0.0 and 1.0, where 0.0 is low risk and 1.0 is high risk</td>
+</tr>
+<tr>
+<td>industry</td>
+<td>The industry this company belongs to</td>
+</tr>
+<tr>
+<td>comps</td>
+<td>An array of company ids, where each one corresponds to a &lsquo;comparable&rsquo; or &#39;peer&rsquo; of this company</td>
+</tr>
+<tr>
+<td>iss_data</td>
+<td>A dictionary of governance-related ISS data</td>
+</tr>
+<tr>
+<td>company_url</td>
+<td>URL of the company&rsquo;s website</td>
+</tr>
+<tr>
+<td>profile</td>
+<td>A text profile of the company</td>
+</tr>
+<tr>
+<td>risk_history</td>
+<td>A dictionary that gives the risk trejectory of this company</td>
+</tr>
+<tr>
+<td>indexname</td>
+<td>Name of the index this company belongs to, e.g., &ldquo;S&amp;P 500&rdquo;</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-a-company-39-s-financial-data">Get a company&rsquo;s financial data</h2>
+<pre class="highlight shell"><code>curl -X POST -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span> -H <span class="s2">"Content-Type: application/json"</span>
+-d <span class="s1">'{"id":2,"data_types":["price"],"start_date":"2015-09-01","end_date":"2015-09-05"}'</span>
+<span class="s2">"http://ewsapi.teneodigital.com/financial_data"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+</span><span class="p">{</span><span class="w">
+   </span><span class="nt">"date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-04T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"price"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">143.7</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="w">
+   </span><span class="nt">"date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-03T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"price"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">146.78</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="w">
+   </span><span class="nt">"date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-02T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"price"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">145.05</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="w">
+   </span><span class="nt">"date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"price"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">142.68</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST http://ewsapi.teneodigital.com/financial_data</code></p>
+
+<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+<h3 id="post-parameters">POST Parameters</h3>
+
+<p>Post these parameters as json to this endpoint. Remember to set the &#39;Content-Type&rsquo; to &#39;application/json&rsquo;.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The id of the company</td>
+</tr>
+<tr>
+<td>data_types <optional - will default to all data types available></td>
+<td>JSON array of data types being queried. See below for all available data types.</td>
+</tr>
+<tr>
+<td>start_time <optional - will default to earliest available></td>
+<td>Start time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;, e.g., &ldquo;2015-10-30&rdquo;</td>
+</tr>
+<tr>
+<td>end_time <optional - will default to latest available></td>
+<td>End time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;, e.g., &ldquo;2015-10-30&rdquo;</td>
+</tr>
+</tbody></table>
+
+<h3 id="data-types-available">Data types available</h3>
+
+<table><thead>
+<tr>
+<th>Data type</th>
+<th>Description</th>
+<th>Cadence</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>price</td>
+<td>Price of stock</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>one_month_total_return</td>
+<td>1 Month Total Shareholder Return</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>three_month_total_return</td>
+<td>3 Month Total Shareholder Return</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>six_month_total_return</td>
+<td>6 Month Total Shareholder Return</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>one_year_total_return</td>
+<td>1 Year Total Shareholder Return</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>three_year_total_return</td>
+<td>3 Year Total Shareholder Return</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>five_year_total_return</td>
+<td>5 Year Total Shareholder Return</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>percent_of_shares_outstanding</td>
+<td>Short Percentage</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>rolling_vol_30</td>
+<td>Rolling 30 Day Volatility</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>norm_pe_ratio</td>
+<td>P/E Ratio</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>Volume</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>price_to_book_value</td>
+<td>Price to Book</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>shares_outstanding</td>
+<td>Shares Outstanding</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>ebitda_margin_ttm</td>
+<td>TTM EBITDA Margin</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>capex_to_revenue_ttm</td>
+<td>Capex to Revenue</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>revenues</td>
+<td>Quarterly Revenue</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>cash_and_equivalents</td>
+<td>Cash and Equivalents</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>return_on_invested_capital</td>
+<td>Return on Invested Capital</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>cash_to_assets</td>
+<td>Cash to Assets</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>net_financial_debt_to_ebitda_ttm</td>
+<td>TTM Net Financial Debt to EBITDA</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>ebit_margin_annual</td>
+<td>Annual EBIT Margin</td>
+<td>Annual</td>
+</tr>
+<tr>
+<td>ebitda_margin_annual</td>
+<td>Annual EBITDA Margin</td>
+<td>Annual</td>
+</tr>
+</tbody></table>
+
+          <h1 id="errors">Errors</h1>
+
+<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
 
 <p>The Kittn API uses the following error codes:</p>
 
@@ -232,7 +500,7 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 <tr>
 <td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slown down!</td>
+<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
 </tr>
 <tr>
 <td>500</td>
@@ -246,11 +514,6 @@ Remember — a happy kitten is an authenticated kitten!
 
       </div>
       <div class="dark-box">
-          <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-          </div>
       </div>
     </div>
   </body>
