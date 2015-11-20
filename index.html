@@ -21,7 +21,7 @@
       </span>
     </a>
     <div class="tocify-wrapper">
-      <h1 class="content" style="color:white">Teneo EWS API</h1>
+      <h1 style="color:white;padding-left:15px">Teneo EWS API</h1>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
@@ -270,6 +270,148 @@ You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
 </tr>
 </tbody></table>
 
+<h2 id="get-all-companies">Get All Companies</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/companies"</span>
+  -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span>
+</code></pre>
+
+<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NYSE:AAPL"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apple, Inc."</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"risk"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NYSE:IBM"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"International Business Machines"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"risk"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves all companies to be displayed in the dashboard.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/companies</code></p>
+
+<h3 id="response-paramaters">Response Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>1</td>
+<td>The unique identifier for the company, that will not change</td>
+</tr>
+<tr>
+<td>ticker</td>
+<td>&ldquo;NYSE:AAPL&rdquo;</td>
+<td>The company&rsquo;s ticker</td>
+</tr>
+<tr>
+<td>name</td>
+<td>&ldquo;Apple, Inc.&rdquo;</td>
+<td>The company&rsquo;s name</td>
+</tr>
+<tr>
+<td>risk</td>
+<td>0.1</td>
+<td>a decimal value between 0.0 and 1.0, where 0.0 is low risk and 1.0 is high risk</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-risk-indicators-for-company">Get Risk Indicators for Company</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/risk_indicators?id=2"</span>
+  -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span>
+</code></pre>
+
+<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"data_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"norm_pe_ratio"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"data_type_display_name"</span><span class="p">:</span><span class="s2">"P/E Ratio"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"importance"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"model_rank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"data_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ebitda_margin"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"data_type_display_name"</span><span class="p">:</span><span class="s2">"EBITDA Margin"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"importance"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"model_rank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves all the risk indicators for the company.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/risk_indicators?id=&lt;id&gt;</code></p>
+
+<h3 id="get-paramaters">GET Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>1</td>
+<td>The unique identifier for the company, that will not change</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-parameters">Response Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data_type</td>
+<td>&ldquo;ebitda_margin&rdquo;</td>
+<td>This value can be used to query the financial_data endpoint</td>
+</tr>
+<tr>
+<td>data_type_display_name</td>
+<td>&ldquo;EBITDA Margin&rdquo;</td>
+<td>This is the value that should be displayed to the user</td>
+</tr>
+<tr>
+<td>importance</td>
+<td>0.8</td>
+<td>A decimal value between 0.0 and 1.0, where 0.0 is low importance and 1.0 is high importance. This should drive the color of the scale</td>
+</tr>
+<tr>
+<td>model_rank</td>
+<td>3</td>
+<td>An integer value that denotes the rank of the metric in the model. This drives the &#39;rank&rsquo; of the metric in the &#39;Risk Indicators&rsquo; table.</td>
+</tr>
+</tbody></table>
+
 <h2 id="get-a-company-39-s-financial-data">Get a company&rsquo;s financial data</h2>
 <pre class="highlight shell"><code>curl -X POST -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span> -H <span class="s2">"Content-Type: application/json"</span>
 -d <span class="s1">'{"id":2,"data_types":["price"],"start_date":"2015-09-01","end_date":"2015-09-05"}'</span>
@@ -451,6 +593,148 @@ You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
 <td>ebitda_margin_annual</td>
 <td>Annual EBITDA Margin</td>
 <td>Annual</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-precedent-attacks">Get Precedent Attacks</h2>
+
+<h2 id="get-past-attacks-on-companies-that-looked-similar-to-the-company-39-s-situation-today">Get past attacks on companies that looked similar to the company&rsquo;s situation today.</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/precedents?id=2"</span> -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span> 
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"company_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-03-01"</span><span class="w">
+    </span><span class="s2">"attacker_name"</span><span class="err">:</span><span class="w"> </span><span class="s2">"Pershing Square Capital"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"similarity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"company_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-08-01"</span><span class="w">
+    </span><span class="s2">"attacker_name"</span><span class="err">:</span><span class="w"> </span><span class="s2">"Icahn Enterprises"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"similarity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves past attacks which looked similar to the company&rsquo;s situation today.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/precedents?id=&lt;id&gt;</code></p>
+
+<h3 id="response-paramaters">Response Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>2</td>
+<td>The unique identifier for the company, that will not change</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-paramaters">Response Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>company_id</td>
+<td>2</td>
+<td>The unique identifier for the company, which can be used to query the API for more data</td>
+</tr>
+<tr>
+<td>date</td>
+<td>&ldquo;2012-08-01&rdquo;</td>
+<td>The data of the attack. This can be used in conjunction with the company_id to get data on the company on the date of the attack.</td>
+</tr>
+<tr>
+<td>attacker_name</td>
+<td>&ldquo;Pershing Square Capital&rdquo;</td>
+<td>The activist&rsquo;s name</td>
+</tr>
+<tr>
+<td>risk</td>
+<td>0.8</td>
+<td>a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-likely-attackers">Get Likely Attackers</h2>
+
+<h2 id="get-a-company-39-s-likely-attackers">Get a company&rsquo;s likely attackers</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/likely_attackers?id=2"</span> -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span> 
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"attacker_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pershing Square Capital"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"likelihood"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"attacker_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Icahn Enterprises"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"likelihood"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves all the activists likely to attack the company.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/likely_attacker?id=&lt;id&gt;</code></p>
+
+<h3 id="response-paramaters">Response Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>2</td>
+<td>The unique identifier for the company, that will not change</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-paramaters">Response Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>attacker_name</td>
+<td>&ldquo;Pershing Square Capital&rdquo;</td>
+<td>The activist&rsquo;s name</td>
+</tr>
+<tr>
+<td>risk</td>
+<td>0.8</td>
+<td>a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood</td>
 </tr>
 </tbody></table>
 
