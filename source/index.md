@@ -191,6 +191,100 @@ profile | A text profile of the company
 risk_history | A dictionary that gives the risk trejectory of this company
 indexname | Name of the index this company belongs to, e.g., "S&P 500"
 
+## Get All Companies
+
+
+```shell
+curl "http://ewsapi.teneodigital.com/companies"
+  -H "Authorization: <API KEY>"
+```
+
+<aside class="warning">If you're not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "id": 1,
+    "ticker": "NYSE:AAPL",
+    "name": "Apple, Inc.",
+    "risk": 0.1
+  },
+  {
+    "id": 2,
+    "ticker": "NYSE:IBM",
+    "name": "International Business Machines",
+    "risk": 0.3
+  }
+]
+```
+
+This endpoint retrieves all companies to be displayed in the dashboard.
+
+### HTTP Request
+
+`GET http://ewsapi.teneodigital.com/companies`
+
+### Response Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+id | 1 | The unique identifier for the company, that will not change
+ticker | "NYSE:AAPL" | The company's ticker
+name | "Apple, Inc." | The company's name
+risk | 0.1 | a decimal value between 0.0 and 1.0, where 0.0 is low risk and 1.0 is high risk
+
+## Get Risk Indicators for Company
+
+
+```shell
+curl "http://ewsapi.teneodigital.com/risk_indicators?id=2"
+  -H "Authorization: <API KEY>"
+```
+
+<aside class="warning">If you're not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "data_type": "norm_pe_ratio",
+    "data_type_display_name":"P/E Ratio",
+    "importance": 0.9,
+    "model_rank" : 0
+  },
+  {
+    "data_type": "ebitda_margin",
+    "data_type_display_name":"EBITDA Margin",
+    "importance": 0.8,
+    "model_rank" : 3
+  }
+]
+```
+
+This endpoint retrieves all the risk indicators for the company.
+
+### HTTP Request
+
+`GET http://ewsapi.teneodigital.com/risk_indicators?id=<id>`
+
+### GET Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+id | 1 | The unique identifier for the company, that will not change
+
+### Response Parameters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+data_type | "ebitda_margin" | This value can be used to query the financial_data endpoint
+data_type_display_name | "EBITDA Margin" | This is the value that should be displayed to the user
+importance | 0.8 | A decimal value between 0.0 and 1.0, where 0.0 is low importance and 1.0 is high importance. This should drive the color of the scale
+model_rank | 3 | An integer value that denotes the rank of the metric in the model. This drives the 'rank' of the metric in the 'Risk Indicators' table.
+
 ## Get a company's financial data
 
 ```shell
@@ -266,3 +360,94 @@ cash_to_assets | Cash to Assets | Quarterly
 net_financial_debt_to_ebitda_ttm | TTM Net Financial Debt to EBITDA | Quarterly
 ebit_margin_annual | Annual EBIT Margin | Annual
 ebitda_margin_annual | Annual EBITDA Margin | Annual
+
+##Get Precedent Attacks
+
+## Get past attacks on companies that looked similar to the company's situation today.
+
+```shell
+curl "http://ewsapi.teneodigital.com/precedents?id=2" -H "Authorization: <API KEY>" 
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "company_id" : 2,
+    "date" : "2012-03-01"
+    "attacker_name": "Pershing Square Capital",
+    "similarity": 0.7
+  },
+  {
+    "company_id" : 1,
+    "date" : "2012-08-01"
+    "attacker_name": "Icahn Enterprises",
+    "similarity": 0.6
+  }
+]
+```
+
+This endpoint retrieves past attacks which looked similar to the company's situation today.
+
+### HTTP Request
+
+`GET http://ewsapi.teneodigital.com/precedents?id=<id>`
+
+### Response Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+id | 2 | The unique identifier for the company, that will not change
+
+### Response Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+company_id | 2 | The unique identifier for the company, which can be used to query the API for more data
+date | "2012-08-01" | The data of the attack. This can be used in conjunction with the company_id to get data on the company on the date of the attack.
+attacker_name | "Pershing Square Capital" | The activist's name
+risk | 0.8 | a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood
+
+
+##Get Likely Attackers
+
+## Get a company's likely attackers
+
+```shell
+curl "http://ewsapi.teneodigital.com/likely_attackers?id=2" -H "Authorization: <API KEY>" 
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "attacker_name": "Pershing Square Capital",
+    "likelihood": 0.7
+  },
+  {
+    "attacker_name": "Icahn Enterprises",
+    "likelihood": 0.6
+  }
+]
+```
+
+This endpoint retrieves all the activists likely to attack the company.
+
+### HTTP Request
+
+`GET http://ewsapi.teneodigital.com/likely_attacker?id=<id>`
+
+### Response Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+id | 2 | The unique identifier for the company, that will not change
+
+### Response Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+attacker_name | "Pershing Square Capital" | The activist's name
+risk | 0.8 | a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood
