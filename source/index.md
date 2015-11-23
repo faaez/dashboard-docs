@@ -191,7 +191,7 @@ profile | A text profile of the company
 risk_history | A dictionary that gives the risk trejectory of this company
 indexname | Name of the index this company belongs to, e.g., "S&P 500"
 
-## Get a company's financial data
+## Get a company's financial data (Timeseries)
 
 ### HTTP Request
 
@@ -216,3 +216,28 @@ three_month_total_return | 3 Month Total Shareholder Return
 ten_month_total_return | 10 Month Total Shareholder Return 
 one_year_total_return | 1 Year Total Shareholder Return
 three_year_total_return | 3 Year Total Shareholder Return
+
+
+## Get a company's financial data (Latest)
+
+### HTTP Request
+
+`GET http://ewsapi.teneodigital.com/financial_data_latest?id=<id>&data_type=<data_type>`
+
+### GET Parameters
+
+Parameter | Description 
+--------- | -----------
+id | The id of the company 
+data_type | Data type being queried. See below for available data types. 
+
+### Data types available
+
+Data type | Description 
+--------- | -----------
+price | Price of stock
+roc_1 | Percentage change since last closing price
+one_year_return | Year change
+volume | Shares Traded
+market_cap | Market Cap
+enterprise_value | Enterprise Value
