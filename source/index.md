@@ -342,12 +342,12 @@ curl "http://ewsapi.teneodigital.com/social_sentiment?id=2" -H "Authorization: <
   {
     "date" : "2015-03-01",
     "sentiment": 3.1,
-    "volume": 10,000
+    "volume": 10000
   },
   {
     "date" : "2015-03-02",
     "sentiment": 3.5,
-    "volume": 12,000
+    "volume": 12000
   }
 ]
 ```
@@ -373,4 +373,4 @@ Parameter | Sample Value | Description
 --------- | ------- | -----------
 date | "2015-03-01" | Date in the format "YYYY-MM-DD"
 sentiment | 3.1 | a decimal value between 1.0 and 5.0, where 1.0 is very negative, 3.0 is neutral and 5.0 is very positive
-volume | 10,000 | Integer value for volume of posts that day
+volume | 10000 | Integer value for volume of posts that day
