@@ -18,7 +18,7 @@ search: true
 
 # Introduction
 
-This is the proposed API for Teneo EWS. Please do give us feedback or request changes as appropriate. 
+This is the proposed API for Teneo EWS. Feel free to give us feedback or request changes. 
 
 # Authentication
 
@@ -191,175 +191,56 @@ profile | A text profile of the company
 risk_history | A dictionary that gives the risk trejectory of this company
 indexname | Name of the index this company belongs to, e.g., "S&P 500"
 
-## Get All Companies
-
-
-```shell
-curl "http://ewsapi.teneodigital.com/companies"
-  -H "Authorization: <API KEY>"
-```
-
-<aside class="warning">If you're not using an API key, note that the server will return a 403 Forbidden error.</aside>
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "ticker": "NYSE:AAPL",
-    "name": "Apple, Inc.",
-    "risk": 0.1
-  },
-  {
-    "id": 2,
-    "ticker": "NYSE:IBM",
-    "name": "International Business Machines",
-    "risk": 0.3
-  }
-]
-```
-
-This endpoint retrieves all companies to be displayed in the dashboard.
+## Get a company's financial data (Timeseries)
 
 ### HTTP Request
 
-`GET http://ewsapi.teneodigital.com/companies`
+`GET http://ewsapi.teneodigital.com/financial_data?id=<id>&data_type=<data_type>`
 
-### Response Paramaters
-
-Parameter | Sample Value | Description
---------- | ------- | -----------
-id | 1 | The unique identifier for the company, that will not change
-ticker | "NYSE:AAPL" | The company's ticker
-name | "Apple, Inc." | The company's name
-risk | 0.1 | a decimal value between 0.0 and 1.0, where 0.0 is low risk and 1.0 is high risk
-
-## Get Risk Indicators for Company
-
-
-```shell
-curl "http://ewsapi.teneodigital.com/risk_indicators?id=2"
-  -H "Authorization: <API KEY>"
-```
-
-<aside class="warning">If you're not using an API key, note that the server will return a 403 Forbidden error.</aside>
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "data_type": "norm_pe_ratio",
-    "data_type_display_name":"P/E Ratio",
-    "importance": 0.9,
-    "model_rank" : 0
-  },
-  {
-    "data_type": "ebitda_margin",
-    "data_type_display_name":"EBITDA Margin",
-    "importance": 0.8,
-    "model_rank" : 3
-  }
-]
-```
-
-This endpoint retrieves all the risk indicators for the company.
-
-### HTTP Request
-
-`GET http://ewsapi.teneodigital.com/risk_indicators?id=<id>`
-
-### GET Paramaters
-
-Parameter | Sample Value | Description
---------- | ------- | -----------
-id | 1 | The unique identifier for the company, that will not change
-
-### Response Parameters
-
-Parameter | Sample Value | Description
---------- | ------- | -----------
-data_type | "ebitda_margin" | This value can be used to query the financial_data endpoint
-data_type_display_name | "EBITDA Margin" | This is the value that should be displayed to the user
-importance | 0.8 | A decimal value between 0.0 and 1.0, where 0.0 is low importance and 1.0 is high importance. This should drive the color of the scale
-model_rank | 3 | An integer value that denotes the rank of the metric in the model. This drives the 'rank' of the metric in the 'Risk Indicators' table.
-
-## Get a company's financial data
-
-```shell
-curl -X POST -H "Authorization: <API KEY>" -H "Content-Type: application/json"
--d '{"id":2,"data_types":["price"],"start_date":"2015-09-01","end_date":"2015-09-05"}'
-"http://ewsapi.teneodigital.com/financial_data"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-{
-   "date" : "2015-09-04T00:00:00.000Z",
-   "price" : 143.7
-},
-{
-   "date" : "2015-09-03T00:00:00.000Z",
-   "price" : 146.78
-},
-{
-   "date" : "2015-09-02T00:00:00.000Z",
-   "price" : 145.05
-},
-{
-   "date" : "2015-09-01T00:00:00.000Z",
-   "price" : 142.68
-}
-]
-```
-
-### HTTP Request
-
-`POST http://ewsapi.teneodigital.com/financial_data`
-
-<aside class="warning">If you're not using an API key, note that the server will return a 403 Forbidden error.</aside>
-
-### POST Parameters
-
-Post these parameters as json to this endpoint. Remember to set the 'Content-Type' to 'application/json'.
+### GET Parameters
 
 Parameter | Description 
 --------- | -----------
 id | The id of the company 
-data_types (optional - will default to all data types available) | JSON array of data types being queried. See below for all available data types.
-start_time (optional - will default to earliest available)| Start time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
-end_time (optional - will default to latest available) | End time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
-
+data_type | Data type being queried. See below for available data types. 
+start_time <optional - will default to earliest available>| Start time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
+end_time <optional - will default to latest available> | End time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
 
 ### Data types available
 
-Data type | Description | Cadence
---------- | ----------- | -----------
-price | Price of stock | Daily 
-one_month_total_return | 1 Month Total Shareholder Return | Daily
-three_month_total_return | 3 Month Total Shareholder Return | Daily
-six_month_total_return | 6 Month Total Shareholder Return | Daily
-one_year_total_return | 1 Year Total Shareholder Return | Daily
-three_year_total_return | 3 Year Total Shareholder Return | Daily
-five_year_total_return | 5 Year Total Shareholder Return | Daily
-percent_of_shares_outstanding | Short Percentage | Daily
-rolling_vol_30 | Rolling 30 Day Volatility | Daily
-norm_pe_ratio | P/E Ratio | Daily
-volume | Volume | Daily
-price_to_book_value | Price to Book | Daily
-shares_outstanding | Shares Outstanding | Daily
-ebitda_margin_ttm | TTM EBITDA Margin | Quarterly
-capex_to_revenue_ttm | Capex to Revenue | Quarterly
-revenues | Quarterly Revenue | Quarterly
-cash_and_equivalents | Cash and Equivalents | Quarterly
-return_on_invested_capital | Return on Invested Capital | Quarterly 
-cash_to_assets | Cash to Assets | Quarterly 
-net_financial_debt_to_ebitda_ttm | TTM Net Financial Debt to EBITDA | Quarterly
-ebit_margin_annual | Annual EBIT Margin | Annual
-ebitda_margin_annual | Annual EBITDA Margin | Annual
+Data type | Description 
+--------- | -----------
+price | Price of stock
+one_month_total_return | 1 Month Total Shareholder Return
+three_month_total_return | 3 Month Total Shareholder Return 
+ten_month_total_return | 10 Month Total Shareholder Return 
+one_year_total_return | 1 Year Total Shareholder Return
+three_year_total_return | 3 Year Total Shareholder Return
+
+
+## Get a company's financial data (Latest)
+
+### HTTP Request
+
+`GET http://ewsapi.teneodigital.com/financial_data_latest?id=<id>&data_type=<data_type>`
+
+### GET Parameters
+
+Parameter | Description 
+--------- | -----------
+id | The id of the company 
+data_type | Data type being queried. See below for available data types. 
+
+### Data types available
+
+Data type | Description 
+--------- | -----------
+price | Price of stock
+roc_1 | Percentage change since last closing price
+one_year_return | Year change
+volume | Shares Traded
+market_cap | Market Cap
+enterprise_value | Enterprise Value
 
 ##Get Precedent Attacks
 
