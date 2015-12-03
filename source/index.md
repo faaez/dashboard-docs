@@ -241,3 +241,90 @@ one_year_return | Year change
 volume | Shares Traded
 market_cap | Market Cap
 enterprise_value | Enterprise Value
+
+##Get Precedent Attacks
+
+```shell
+curl "http://ewsapi.teneodigital.com/precedents?id=2" -H "Authorization: <API KEY>" 
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "company_id" : 2,
+    "date" : "2012-03-01",
+    "attacker_name": "Pershing Square Capital",
+    "similarity": 0.7
+  },
+  {
+    "company_id" : 1,
+    "date" : "2012-08-01",
+    "attacker_name": "Icahn Enterprises",
+    "similarity": 0.6
+  }
+]
+```
+
+This endpoint retrieves past attacks which looked similar to the company's situation today.
+
+### HTTP Request
+
+`GET http://ewsapi.teneodigital.com/precedents?id=<id>`
+
+### Response Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+id | 2 | The unique identifier for the company, that will not change
+
+### Response Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+company_id | 2 | The unique identifier for the company, which can be used to query the API for more data
+date | "2012-08-01" | The data of the attack. This can be used in conjunction with the company_id to get data on the company on the date of the attack.
+attacker_name | "Pershing Square Capital" | The activist's name
+risk | 0.8 | a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood
+
+
+##Get Likely Attackers
+
+```shell
+curl "http://ewsapi.teneodigital.com/likely_attackers?id=2" -H "Authorization: <API KEY>" 
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "attacker_name": "Pershing Square Capital",
+    "likelihood": 0.7
+  },
+  {
+    "attacker_name": "Icahn Enterprises",
+    "likelihood": 0.6
+  }
+]
+```
+
+This endpoint retrieves all the activists likely to attack the company.
+
+### HTTP Request
+
+`GET http://ewsapi.teneodigital.com/likely_attacker?id=<id>`
+
+### Response Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+id | 2 | The unique identifier for the company, that will not change
+
+### Response Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+attacker_name | "Pershing Square Capital" | The activist's name
+risk | 0.8 | a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood
