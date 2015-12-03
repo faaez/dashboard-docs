@@ -203,8 +203,8 @@ Parameter | Description
 --------- | -----------
 id | The id of the company 
 data_type | Data type being queried. See below for available data types. 
-start_time <optional - will default to earliest available>| Start time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
-end_time <optional - will default to latest available> | End time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
+start_time [optional - will default to earliest available]| Start time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
+end_time [optional - will default to latest available] | End time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
 
 ### Data types available
 
@@ -273,7 +273,7 @@ This endpoint retrieves past attacks which looked similar to the company's situa
 
 `GET http://ewsapi.teneodigital.com/precedents?id=<id>`
 
-### Response Paramaters
+### GET Paramaters
 
 Parameter | Sample Value | Description
 --------- | ------- | -----------
@@ -316,7 +316,7 @@ This endpoint retrieves all the activists likely to attack the company.
 
 `GET http://ewsapi.teneodigital.com/likely_attacker?id=<id>`
 
-### Response Paramaters
+### GET Paramaters
 
 Parameter | Sample Value | Description
 --------- | ------- | -----------
@@ -328,3 +328,49 @@ Parameter | Sample Value | Description
 --------- | ------- | -----------
 attacker_name | "Pershing Square Capital" | The activist's name
 risk | 0.8 | a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood
+
+##Get Social Sentiment
+
+```shell
+curl "http://ewsapi.teneodigital.com/social_sentiment?id=2" -H "Authorization: <API KEY>" 
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "date" : "2015-03-01",
+    "sentiment": 3.1,
+    "volume": 10,000
+  },
+  {
+    "date" : "2015-03-02",
+    "sentiment": 3.5,
+    "volume": 12,000
+  }
+]
+```
+
+This endpoint returns social sentiment data (if available) for a company.
+
+
+### HTTP Request
+
+`GET http://ewsapi.teneodigital.com/social_sentiment?id=<id>`
+
+### GET Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+id | 2 | The unique identifier for the company, that will not change
+start_time [optional - will default to earliest available]| "2015-10-30" | Start time of data being requested, in the format "YYYY-MM-DD"
+end_time [optional - will default to latest available] | "2015-10-30" | End time of data being requested, in the format "YYYY-MM-DD"
+
+### Response Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+date | "2015-03-01" | Date in the format "YYYY-MM-DD"
+sentiment | 3.1 | a decimal value between 1.0 and 5.0, where 1.0 is very negative, 3.0 is neutral and 5.0 is very positive
+volume | 10,000 | Integer value for volume of posts that day
