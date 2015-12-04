@@ -270,6 +270,85 @@ You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
 </tr>
 </tbody></table>
 
+<h2 id="get-risk-indicators-for-company">Get Risk Indicators for Company</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/risk_indicators?id=2"</span>
+  -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span>
+</code></pre>
+
+<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"data_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"norm_pe_ratio"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"data_type_display_name"</span><span class="p">:</span><span class="s2">"P/E Ratio"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"importance"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"model_rank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"data_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ebitda_margin"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"data_type_display_name"</span><span class="p">:</span><span class="s2">"EBITDA Margin"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"importance"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"model_rank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves all the risk indicators for the company.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/risk_indicators?id=&lt;id&gt;</code></p>
+
+<h3 id="get-paramaters">GET Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>1</td>
+<td>The unique identifier for the company, that will not change</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-parameters">Response Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data_type</td>
+<td>&ldquo;ebitda_margin&rdquo;</td>
+<td>This value can be used to query the financial_data endpoint</td>
+</tr>
+<tr>
+<td>data_type_display_name</td>
+<td>&ldquo;EBITDA Margin&rdquo;</td>
+<td>This is the value that should be displayed to the user</td>
+</tr>
+<tr>
+<td>importance</td>
+<td>0.8</td>
+<td>A decimal value between 0.0 and 1.0, where 0.0 is low importance and 1.0 is high importance. This should drive the color of the scale</td>
+</tr>
+<tr>
+<td>model_rank</td>
+<td>3</td>
+<td>An integer value that denotes the rank of the metric in the model. This drives the &#39;rank&rsquo; of the metric in the &#39;Risk Indicators&rsquo; table.</td>
+</tr>
+</tbody></table>
+
 <h2 id="get-a-company-39-s-financial-data-timeseries">Get a company&rsquo;s financial data (Timeseries)</h2>
 
 <h3 id="http-request">HTTP Request</h3>
