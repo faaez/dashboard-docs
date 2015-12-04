@@ -337,7 +337,7 @@ Parameter | Sample Value | Description
 company_id | 2 | The unique identifier for the company, which can be used to query the API for more data
 date | "2012-08-01" | The data of the attack. This can be used in conjunction with the company_id to get data on the company on the date of the attack.
 attacker_name | "Pershing Square Capital" | The activist's name
-risk | 0.8 | a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood
+similarity | 0.8 | a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood
 
 
 ##Get Likely Attackers
@@ -378,7 +378,7 @@ id | 2 | The unique identifier for the company, that will not change
 Parameter | Sample Value | Description
 --------- | ------- | -----------
 attacker_name | "Pershing Square Capital" | The activist's name
-risk | 0.8 | a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood
+likelihood | 0.8 | a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood
 
 ##Get Social Sentiment
 
