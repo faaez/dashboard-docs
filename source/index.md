@@ -408,7 +408,7 @@ This endpoint returns social sentiment data (if available) for a company.
 
 ### HTTP Request
 
-`GET http://ewsapi.teneodigital.com/social_sentiment?id=<id>`
+`GET http://ewsapi.teneodigital.com/social_sentiment?id=<id>&start_date=<start_date>&end_time=<end_time>`
 
 ### GET Paramaters
 
