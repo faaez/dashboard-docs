@@ -191,6 +191,57 @@ profile | A text profile of the company
 risk_history | A dictionary that gives the risk trejectory of this company
 indexname | Name of the index this company belongs to, e.g., "S&P 500"
 
+## Get Risk Indicators for Company
+
+
+```shell
+curl "http://ewsapi.teneodigital.com/risk_indicators?id=2"
+  -H "Authorization: <API KEY>"
+```
+
+<aside class="warning">If you're not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "data_type": "norm_pe_ratio",
+    "data_type_display_name":"P/E Ratio",
+    "importance": 0.9,
+    "model_rank" : 0
+  },
+  {
+    "data_type": "ebitda_margin",
+    "data_type_display_name":"EBITDA Margin",
+    "importance": 0.8,
+    "model_rank" : 3
+  }
+]
+```
+
+This endpoint retrieves all the risk indicators for the company.
+
+### HTTP Request
+
+`GET http://ewsapi.teneodigital.com/risk_indicators?id=<id>`
+
+### GET Paramaters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+id | 1 | The unique identifier for the company, that will not change
+
+### Response Parameters
+
+Parameter | Sample Value | Description
+--------- | ------- | -----------
+data_type | "ebitda_margin" | This value can be used to query the financial_data endpoint
+data_type_display_name | "EBITDA Margin" | This is the value that should be displayed to the user
+importance | 0.8 | A decimal value between 0.0 and 1.0, where 0.0 is low importance and 1.0 is high importance. This should drive the color of the scale
+model_rank | 3 | An integer value that denotes the rank of the metric in the model. This drives the 'rank' of the metric in the 'Risk Indicators' table.
+
+
 ## Get a company's financial data (Timeseries)
 
 ### HTTP Request
