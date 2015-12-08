@@ -271,6 +271,62 @@ three_year_total_return | 3 Year Total Shareholder Return
 
 ## Get a company's financial data (Latest)
 
+```shell
+curl "http://ewsapi.teneodigital.com/financial_data_latest?id=2&data_type=price" -H "Authorization: <API KEY>" 
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "price":{
+    "date": "2015-12-08",
+    "status": "ok",
+    "value": 137.89
+  }
+}
+```
+
+```shell
+curl "http://ewsapi.teneodigital.com/financial_data_latest?id=2" -H "Authorization: <API KEY>" 
+```
+
+> If no 'data_type' parameter is passed, all available data points are returned by default in the following format:
+
+```json
+{
+"roc_1":{
+"date": "2015-12-08",
+"status": "ok",
+"value": -0.010247223217484773
+},
+"enterprise_value":{
+"date": "2015-12-07",
+"status": "ok",
+"value": 165628.8645
+},
+"price":{
+"date": "2015-12-08",
+"status": "ok",
+"value": 138.12
+},
+"volume":{
+"date": "2015-12-07",
+"status": "ok",
+"value": 3279280
+},
+"one_year_return":{
+"date": "2015-12-07",
+"status": "ok",
+"value": -0.145281
+},
+"market_cap":{
+"date": "2015-12-08",
+"status": "ok",
+"value": 133991.60705653887
+}
+}
+```
 ### HTTP Request
 
 `GET http://ewsapi.teneodigital.com/financial_data_latest?id=<id>&data_type=<data_type>`
@@ -280,7 +336,7 @@ three_year_total_return | 3 Year Total Shareholder Return
 Parameter | Description 
 --------- | -----------
 id | The id of the company 
-data_type | Data type being queried. See below for available data types. 
+data_type (optional)| Data type being queried. See below for available data types. If this parameter is not passed, all available data points will be returned by default
 
 ### Data types available
 
