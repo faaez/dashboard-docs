@@ -416,6 +416,59 @@ You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
 </tbody></table>
 
 <h2 id="get-a-company-39-s-financial-data-latest">Get a company&rsquo;s financial data (Latest)</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/financial_data_latest?id=2&amp;data_type=price"</span> -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span> 
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"price"</span><span class="p">:{</span><span class="w">
+    </span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-08"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">137.89</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/financial_data_latest?id=2"</span> -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span> 
+</code></pre>
+
+<blockquote>
+<p>If no &#39;data_type&rsquo; parameter is passed, all available data points are returned by default in the following format:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+</span><span class="nt">"roc_1"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-08"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.010247223217484773</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="nt">"enterprise_value"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-07"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">165628.8645</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="nt">"price"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-08"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">138.12</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="nt">"volume"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-07"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">3279280</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="nt">"one_year_return"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-07"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.145281</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="nt">"market_cap"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-08"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">133991.60705653887</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -434,8 +487,8 @@ You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
 <td>The id of the company</td>
 </tr>
 <tr>
-<td>data_type</td>
-<td>Data type being queried. See below for available data types.</td>
+<td>data_type (optional)</td>
+<td>Data type being queried. See below for available data types. If this parameter is not passed, all available data points will be returned by default</td>
 </tr>
 </tbody></table>
 
