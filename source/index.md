@@ -253,7 +253,7 @@ model_rank | 3 | An integer value that denotes the rank of the metric in the mod
 Parameter | Description 
 --------- | -----------
 id | The id of the company 
-data_type | Data type being queried. See below for available data types. 
+data_type | Data type(s) being queried. See below for available data types. You can query multiple data types in the same call by passing a list for this parameter.
 start_time [optional - will default to earliest available]| Start time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
 end_time [optional - will default to latest available] | End time of data being requested, in the format "YYYY-MM-DD", e.g., "2015-10-30"
 
