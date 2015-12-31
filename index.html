@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Teneo EWS API Reference</title>
+    <title>Teneo Dashboard API Reference</title>
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
@@ -34,7 +34,7 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>This is the proposed API for Teneo EWS. Feel free to give us feedback or request changes. </p>
+<p>This is the proposed API for Teneo Dashboard. Feel free to give us feedback or request changes. </p>
 
 <h1 id="authentication">Authentication</h1>
 
@@ -46,10 +46,10 @@ You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
 
 <aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
 
-<h1 id="companies">Companies</h1>
+<h1 id="client">Client</h1>
 
-<h2 id="get-all-companies">Get All Companies</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/companies"</span>
+<h2 id="reputation-score">Reputation Score</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://dashapi.teneodigital.com:8080/rep_score?client_id=&lt;XXXX&gt;&amp;"</span>
   -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span>
 </code></pre>
 
@@ -59,248 +59,28 @@ You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NYSE:AAPL"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apple, Inc."</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"risk"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NYSE:IBM"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"International Business Machines"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"risk"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves all companies to be displayed in the dashboard.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/companies</code></p>
-
-<h3 id="response-paramaters">Response Paramaters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Value</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>1</td>
-<td>The unique identifier for the company, that will not change</td>
-</tr>
-<tr>
-<td>ticker</td>
-<td>&ldquo;NYSE:AAPL&rdquo;</td>
-<td>The company&rsquo;s ticker</td>
-</tr>
-<tr>
-<td>name</td>
-<td>&ldquo;Apple, Inc.&rdquo;</td>
-<td>The company&rsquo;s name</td>
-</tr>
-<tr>
-<td>risk</td>
-<td>0.1</td>
-<td>a decimal value between 0.0 and 1.0, where 0.0 is low risk and 1.0 is high risk</td>
-</tr>
-</tbody></table>
-
-<h2 id="get-a-specific-company">Get a Specific Company</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/company?id=2"</span>
-  -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NYSE:IBM"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"International Business Machines"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"risk"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"industry"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Information Technology Services"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"comps"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> 
-        </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="mi">3</span><span class="p">,</span><span class="w">
-        </span><span class="mi">4</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nt">"iss_data"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"AuditRank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"companyid"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"77251"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"MeetingDate_Latest"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Apr 28 2015 10:00AM"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"NumDircOverBoarded"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"MedianNEDPay"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"307980"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"NumWomanOnBoard"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"ShrdPropMoreThan40PctYN"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"No"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"NumPartyTrans"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"ResignationReq"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Bylaws-Charter"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"MajorityVoteRequirement"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"By-laws"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"PTA"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"22"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"MSOP_AgainstRate"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"6.4"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"CompensationRank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"NumMinority"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"DirAgeOver72"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"ResponseToOutsVoteYN"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Yes"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"NumEthnicUnknown"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"BoardRank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"RDA"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"-31"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"ShareholderRank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"AvgDirAge"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"64"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"NumDirWithPartyTrans"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"DirRecMoreThan10PctAgainst"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"ResponseToCastVoteYN"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Yes"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"NumNEDMedianPayCalc"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"QSUpdateDate"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Mar 27 2015  2:15PM"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"MOM"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1.03"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"OverallQSRank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"company_url"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.ibm.com"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"profile"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"International Business Machines Corp is an Information Technology (IT) company. It creates business value for clients and solves business problems through integrated solutions that leverage information technology &amp; knowledge of business processes."</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"risk_history"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"2015-05-08T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-07T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-06T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-05T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-04T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-01T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-04-30T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-04-29T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-04-28T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-04-27T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-20T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-19T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-18T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-15T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-14T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-13T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-12T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-11T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-08T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-07T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span><span class="w"> 
-        </span><span class="nt">"2015-05-26T00:00:00.000Z"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"indexname"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"S&amp;P 500"</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-30T11:10:36+0000"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"social_score"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.4"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"news_score"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.6"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"cadence"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"daily"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"aggregate_score"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.0"</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-29T11:10:36+0000"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"social_score"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.3"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"news_score"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.5"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"cadence"</span><span class="p">:</span><span class="s2">"daily"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"aggregate_score"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.6"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves a specific company.</p>
-
-<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/company?id=&lt;id&gt;</code></p>
-
-<h3 id="get-parameters">GET Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>The id of the company</td>
-</tr>
-</tbody></table>
-
-<h3 id="response-parameters">Response Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>The id of the company</td>
-</tr>
-<tr>
-<td>ticker</td>
-<td>Ticker of the company</td>
-</tr>
-<tr>
-<td>name</td>
-<td>Name of the company</td>
-</tr>
-<tr>
-<td>risk</td>
-<td>A decimal value between 0.0 and 1.0, where 0.0 is low risk and 1.0 is high risk</td>
-</tr>
-<tr>
-<td>industry</td>
-<td>The industry this company belongs to</td>
-</tr>
-<tr>
-<td>comps</td>
-<td>An array of company ids, where each one corresponds to a &lsquo;comparable&rsquo; or &#39;peer&rsquo; of this company</td>
-</tr>
-<tr>
-<td>iss_data</td>
-<td>A dictionary of governance-related ISS data</td>
-</tr>
-<tr>
-<td>company_url</td>
-<td>URL of the company&rsquo;s website</td>
-</tr>
-<tr>
-<td>profile</td>
-<td>A text profile of the company</td>
-</tr>
-<tr>
-<td>risk_history</td>
-<td>A dictionary that gives the risk trejectory of this company</td>
-</tr>
-<tr>
-<td>indexname</td>
-<td>Name of the index this company belongs to, e.g., &ldquo;S&amp;P 500&rdquo;</td>
-</tr>
-</tbody></table>
-
-<h2 id="get-risk-indicators-for-company">Get Risk Indicators for Company</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/risk_indicators?id=2"</span>
-  -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span>
-</code></pre>
-
-<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"data_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"norm_pe_ratio"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"data_type_display_name"</span><span class="p">:</span><span class="s2">"P/E Ratio"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"importance"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"model_rank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"data_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ebitda_margin"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"data_type_display_name"</span><span class="p">:</span><span class="s2">"EBITDA Margin"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"importance"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"model_rank"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
-  </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves all the risk indicators for the company.</p>
+<p>This endpoint retrieves the reputation scores available for the client specified by client_id.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/risk_indicators?id=&lt;id&gt;</code></p>
+<p><code class="prettyprint">GET http://dashapi.teneodigital.com:8080/rep_score</code></p>
 
 <h3 id="get-paramaters">GET Paramaters</h3>
 
@@ -312,412 +92,258 @@ You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
 </tr>
 </thead><tbody>
 <tr>
-<td>id</td>
-<td>1</td>
-<td>The unique identifier for the company, that will not change</td>
-</tr>
-</tbody></table>
-
-<h3 id="response-parameters">Response Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Value</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>data_type</td>
-<td>&ldquo;ebitda_margin&rdquo;</td>
-<td>This value can be used to query the financial_data endpoint</td>
+<td>client_id</td>
+<td>acme</td>
+<td>The unique identifier for the client that you&rsquo;re querying for, usually the company name.</td>
 </tr>
 <tr>
-<td>data_type_display_name</td>
-<td>&ldquo;EBITDA Margin&rdquo;</td>
-<td>This is the value that should be displayed to the user</td>
-</tr>
-<tr>
-<td>importance</td>
-<td>0.8</td>
-<td>A decimal value between 0.0 and 1.0, where 0.0 is low importance and 1.0 is high importance. This should drive the color of the scale</td>
-</tr>
-<tr>
-<td>model_rank</td>
-<td>3</td>
-<td>An integer value that denotes the rank of the metric in the model. This drives the &#39;rank&rsquo; of the metric in the &#39;Risk Indicators&rsquo; table.</td>
-</tr>
-</tbody></table>
-
-<h2 id="get-a-company-39-s-financial-data-timeseries">Get a company&rsquo;s financial data (Timeseries)</h2>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/financial_data?id=&lt;id&gt;&amp;data_type=&lt;data_type&gt;</code></p>
-
-<h3 id="get-parameters">GET Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>The id of the company</td>
-</tr>
-<tr>
-<td>data_type</td>
-<td>Data type(s) being queried. See below for available data types. You can query multiple data types in the same call by passing a list for this parameter.</td>
-</tr>
-<tr>
-<td>start_time [optional - will default to earliest available]</td>
-<td>Start time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;, e.g., &ldquo;2015-10-30&rdquo;</td>
-</tr>
-<tr>
-<td>end_time [optional - will default to latest available]</td>
-<td>End time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;, e.g., &ldquo;2015-10-30&rdquo;</td>
-</tr>
-</tbody></table>
-
-<h3 id="data-types-available">Data types available</h3>
-
-<table><thead>
-<tr>
-<th>Data type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>price</td>
-<td>Price of stock</td>
-</tr>
-<tr>
-<td>one_month_total_return</td>
-<td>1 Month Total Shareholder Return</td>
-</tr>
-<tr>
-<td>three_month_total_return</td>
-<td>3 Month Total Shareholder Return</td>
-</tr>
-<tr>
-<td>ten_month_total_return</td>
-<td>10 Month Total Shareholder Return</td>
-</tr>
-<tr>
-<td>one_year_total_return</td>
-<td>1 Year Total Shareholder Return</td>
-</tr>
-<tr>
-<td>three_year_total_return</td>
-<td>3 Year Total Shareholder Return</td>
-</tr>
-</tbody></table>
-
-<h2 id="get-a-company-39-s-financial-data-latest">Get a company&rsquo;s financial data (Latest)</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/financial_data_latest?id=2&amp;data_type=price"</span> -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span> 
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"price"</span><span class="p">:{</span><span class="w">
-    </span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-08"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">137.89</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/financial_data_latest?id=2"</span> -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span> 
-</code></pre>
-
-<blockquote>
-<p>If no &#39;data_type&rsquo; parameter is passed, all available data points are returned by default in the following format:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-</span><span class="nt">"roc_1"</span><span class="p">:{</span><span class="w">
-</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-08"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.010247223217484773</span><span class="w">
-</span><span class="p">},</span><span class="w">
-</span><span class="nt">"enterprise_value"</span><span class="p">:{</span><span class="w">
-</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-07"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">165628.8645</span><span class="w">
-</span><span class="p">},</span><span class="w">
-</span><span class="nt">"price"</span><span class="p">:{</span><span class="w">
-</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-08"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">138.12</span><span class="w">
-</span><span class="p">},</span><span class="w">
-</span><span class="nt">"volume"</span><span class="p">:{</span><span class="w">
-</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-07"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">3279280</span><span class="w">
-</span><span class="p">},</span><span class="w">
-</span><span class="nt">"one_year_return"</span><span class="p">:{</span><span class="w">
-</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-07"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.145281</span><span class="w">
-</span><span class="p">},</span><span class="w">
-</span><span class="nt">"market_cap"</span><span class="p">:{</span><span class="w">
-</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-08"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mf">133991.60705653887</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/financial_data_latest?id=&lt;id&gt;&amp;data_type=&lt;data_type&gt;</code></p>
-
-<h3 id="get-parameters">GET Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>The id of the company</td>
-</tr>
-<tr>
-<td>data_type (optional)</td>
-<td>Data type being queried. See below for available data types. If this parameter is not passed, all available data points will be returned by default</td>
-</tr>
-</tbody></table>
-
-<h3 id="data-types-available">Data types available</h3>
-
-<table><thead>
-<tr>
-<th>Data type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>price</td>
-<td>Price of stock</td>
-</tr>
-<tr>
-<td>roc_1</td>
-<td>Percentage change since last closing price</td>
-</tr>
-<tr>
-<td>one_year_return</td>
-<td>Year change</td>
-</tr>
-<tr>
-<td>volume</td>
-<td>Shares Traded</td>
-</tr>
-<tr>
-<td>market_cap</td>
-<td>Market Cap</td>
-</tr>
-<tr>
-<td>enterprise_value</td>
-<td>Enterprise Value</td>
-</tr>
-</tbody></table>
-
-<h2 id="get-precedent-attacks">Get Precedent Attacks</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/precedents?id=2"</span> -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span> 
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"company_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-03-01"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"attacker_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pershing Square Capital"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"similarity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"company_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-08-01"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"attacker_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Icahn Enterprises"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"similarity"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves past attacks which looked similar to the company&rsquo;s situation today.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/precedents?id=&lt;id&gt;</code></p>
-
-<h3 id="get-paramaters">GET Paramaters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Value</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>2</td>
-<td>The unique identifier for the company, that will not change</td>
-</tr>
-</tbody></table>
-
-<h3 id="response-paramaters">Response Paramaters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Value</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>company_id</td>
-<td>2</td>
-<td>The unique identifier for the company, which can be used to query the API for more data</td>
-</tr>
-<tr>
-<td>date</td>
-<td>&ldquo;2012-08-01&rdquo;</td>
-<td>The data of the attack. This can be used in conjunction with the company_id to get data on the company on the date of the attack.</td>
-</tr>
-<tr>
-<td>attacker_name</td>
-<td>&ldquo;Pershing Square Capital&rdquo;</td>
-<td>The activist&rsquo;s name</td>
-</tr>
-<tr>
-<td>similarity</td>
-<td>0.8</td>
-<td>a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood</td>
-</tr>
-</tbody></table>
-
-<h2 id="get-likely-attackers">Get Likely Attackers</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/likely_attackers?id=2"</span> -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span> 
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"attacker_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pershing Square Capital"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"likelihood"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"attacker_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Icahn Enterprises"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"likelihood"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves all the activists likely to attack the company.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/likely_attacker?id=&lt;id&gt;</code></p>
-
-<h3 id="get-paramaters">GET Paramaters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Value</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>2</td>
-<td>The unique identifier for the company, that will not change</td>
-</tr>
-</tbody></table>
-
-<h3 id="response-paramaters">Response Paramaters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Value</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>attacker_name</td>
-<td>&ldquo;Pershing Square Capital&rdquo;</td>
-<td>The activist&rsquo;s name</td>
-</tr>
-<tr>
-<td>likelihood</td>
-<td>0.8</td>
-<td>a decimal value between 0.0 and 1.0, where 0.0 is low likelihood and 1.0 is high likelihood</td>
-</tr>
-</tbody></table>
-
-<h2 id="get-social-sentiment">Get Social Sentiment</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://ewsapi.teneodigital.com/social_sentiment?id=2"</span> -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span> 
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-03-01"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-03-02"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">12000</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint returns social sentiment data (if available) for a company.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://ewsapi.teneodigital.com/social_sentiment?id=&lt;id&gt;&amp;start_date=&lt;start_date&gt;&amp;end_time=&lt;end_time&gt;</code></p>
-
-<h3 id="get-paramaters">GET Paramaters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Value</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>2</td>
-<td>The unique identifier for the company, that will not change</td>
-</tr>
-<tr>
-<td>start_time [optional - will default to earliest available]</td>
+<td>start_date [optional - will default to earliest available]</td>
 <td>&ldquo;2015-10-30&rdquo;</td>
 <td>Start time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;</td>
 </tr>
 <tr>
-<td>end_time [optional - will default to latest available]</td>
+<td>end_date [optional - will default to latest available]</td>
+<td>&ldquo;2015-10-30&rdquo;</td>
+<td>End time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;</td>
+</tr>
+<tr>
+<td>cadence [optional - will default to &ldquo;daily&rdquo;]</td>
+<td>&ldquo;daily&rdquo;</td>
+<td>Cadence at which data is required - valid values: daily, weekly, monthly</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-paramaters">Response Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>date</td>
+<td>&ldquo;2015-12-29T11:10:36+0000&rdquo;</td>
+<td>The date for the data point. In case of a non-daily cadence, this will be the midpoint of the period aggregated for.</td>
+</tr>
+<tr>
+<td>social_score</td>
+<td>1.3</td>
+<td>Social rep score</td>
+</tr>
+<tr>
+<td>news_score</td>
+<td>3.4</td>
+<td>News rep score</td>
+</tr>
+<tr>
+<td>cadence</td>
+<td>&ldquo;daily&rdquo;</td>
+<td>Cadence at which data was aggregated</td>
+</tr>
+</tbody></table>
+
+<h2 id="global-issues">Global Issues</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://dashapi.teneodigital.com:8080/global_issues?client_id=&lt;XXXX&gt;&amp;"</span>
+  -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span>
+</code></pre>
+
+<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-30T11:28:50+0000"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"cadence"</span><span class="p">:</span><span class="w"> </span><span class="s2">"daily"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"social_issues"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"Politics of Fifa"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">5600</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Corruption and Bribery"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">3380</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.1"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"International Tournaments"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">2410</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.5"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Sponsorship"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">9270</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.6"</span><span class="p">}</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="nt">"news_issues"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"Politics of Fifa"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">5550</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.8"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Corruption and Bribery"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">4550</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.6"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"International Tournaments"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">9860</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.2"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Sponsorship"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">7010</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.3"</span><span class="p">}</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="nt">"aggregate_issues"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"Politics of Fifa"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">11150</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.6"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Corruption and Bribery"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">7930</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.3"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"International Tournaments"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">12270</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.9"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Sponsorship"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">16280</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-29T11:28:50+0000"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"cadence"</span><span class="p">:</span><span class="w"> </span><span class="s2">"daily"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"social_issues"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"Politics of Fifa"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">6750</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.4"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Corruption and Bribery"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">2470</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.3"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"International Tournaments"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">2030</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.0"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Sponsorship"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5"</span><span class="p">}</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="nt">"news_issues"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"Politics of Fifa"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">9400</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.3"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Corruption and Bribery"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">1070</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.4"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"International Tournaments"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">5820</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.5"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Sponsorship"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">1970</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.4"</span><span class="p">}</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="nt">"aggregate_issues"</span><span class="p">:{</span><span class="w">
+</span><span class="nt">"Politics of Fifa"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">16150</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.3"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Corruption and Bribery"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">3540</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.3"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"International Tournaments"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">7850</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.8"</span><span class="p">},</span><span class="w">
+</span><span class="nt">"Sponsorship"</span><span class="p">:{</span><span class="nt">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">2010</span><span class="p">,</span><span class="w"> </span><span class="nt">"sentiment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5"</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves the reputation scores available for the client specified by client_id.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://dashapi.teneodigital.com:8080/global_issues</code></p>
+
+<h3 id="get-paramaters">GET Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>client_id</td>
+<td>acme</td>
+<td>The unique identifier for the client that you&rsquo;re querying for, usually the company name.</td>
+</tr>
+<tr>
+<td>start_date [optional - will default to earliest available]</td>
+<td>&ldquo;2015-10-30&rdquo;</td>
+<td>Start time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;</td>
+</tr>
+<tr>
+<td>end_date [optional - will default to latest available]</td>
+<td>&ldquo;2015-10-30&rdquo;</td>
+<td>End time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;</td>
+</tr>
+<tr>
+<td>cadence [optiona - will default to &ldquo;daily&rdquo;]</td>
+<td>&ldquo;daily&rdquo;</td>
+<td>Cadence at which data is required - valid values: daily, weekly, monthly</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-paramaters">Response Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>date</td>
+<td>&ldquo;2015-12-29T11:10:36+0000&rdquo;</td>
+<td>The date for the data point. In case of a non-daily cadence, this will be the midpoint of the period aggregated for.</td>
+</tr>
+<tr>
+<td>cadence</td>
+<td>&ldquo;daily&rdquo;</td>
+<td>Cadence at which data was aggregated</td>
+</tr>
+<tr>
+<td>social_issues</td>
+<td>see right</td>
+<td>Social issues</td>
+</tr>
+<tr>
+<td>news_issues</td>
+<td>see right</td>
+<td>News issues</td>
+</tr>
+<tr>
+<td>aggregate_issues</td>
+<td>see right</td>
+<td>Aggregate of social and news issues</td>
+</tr>
+</tbody></table>
+
+<h2 id="influencers">Influencers</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://dashapi.teneodigital.com:8080/influencers?client_id=&lt;XXXX&gt;&amp;"</span>
+  -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span>
+</code></pre>
+
+<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dummy Influencer"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"handle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BarackObama"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://twitter.com/BarackObama"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"profile_img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://pbs.twimg.com/profile_images/451007105391022080/iu1f7brY.png"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This account is run by Organizing for Action staff. Tweets from the President are signed -bo."</span><span class="p">,</span><span class="w">
+</span><span class="nt">"followers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"67700000"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"following"</span><span class="p">:</span><span class="w"> </span><span class="s2">"639000"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dummy Influencer"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"handle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BarackObama"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://twitter.com/BarackObama"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"profile_img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://pbs.twimg.com/profile_images/451007105391022080/iu1f7brY.png"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This account is run by Organizing for Action staff. Tweets from the President are signed -bo."</span><span class="p">,</span><span class="w">
+</span><span class="nt">"followers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"67700000"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"following"</span><span class="p">:</span><span class="w"> </span><span class="s2">"639000"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves all the influencers for this client.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://dashapi.teneodigital.com:8080/influencers?client_id=&lt;id&gt;</code></p>
+
+<h3 id="get-paramaters">GET Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>client_id</td>
+<td>acme</td>
+<td>The unique identifier for the client that you&rsquo;re querying for, usually the company name.</td>
+</tr>
+<tr>
+<td>start_date [optional - will default to earliest available]</td>
+<td>&ldquo;2015-10-30&rdquo;</td>
+<td>Start time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;</td>
+</tr>
+<tr>
+<td>end_date [optional - will default to latest available]</td>
 <td>&ldquo;2015-10-30&rdquo;</td>
 <td>End time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;</td>
 </tr>
 </tbody></table>
 
-<h3 id="response-paramaters">Response Paramaters</h3>
+<h3 id="response-parameters">Response Parameters</h3>
+
+<h3 id="response-parameters">Response Parameters</h3>
 
 <table><thead>
 <tr>
@@ -727,19 +353,44 @@ You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
 </tr>
 </thead><tbody>
 <tr>
-<td>date</td>
-<td>&ldquo;2015-03-01&rdquo;</td>
-<td>Date in the format &ldquo;YYYY-MM-DD&rdquo;</td>
+<td>name</td>
+<td>&ldquo;Barack Obama&rdquo;</td>
+<td>This value can be used to query the financial_data endpoint</td>
 </tr>
 <tr>
-<td>sentiment</td>
-<td>3.1</td>
-<td>a decimal value between 1.0 and 5.0, where 1.0 is very negative, 3.0 is neutral and 5.0 is very positive</td>
+<td>handle</td>
+<td>&ldquo;BarackObama&rdquo;</td>
+<td>Twitter handle of the influencer</td>
 </tr>
 <tr>
-<td>volume</td>
-<td>10000</td>
-<td>Integer value for volume of posts that day</td>
+<td>profile</td>
+<td>&ldquo;https://twitter.com/BarackObama&rdquo;</td>
+<td>Link to the profile of the influencer</td>
+</tr>
+<tr>
+<td>profile_img</td>
+<td>&ldquo;https://pbs.twimg.com/profile_images/451007105391022080/iu1f7brY.png&rdquo;</td>
+<td>Link to the profile image of the influencer</td>
+</tr>
+<tr>
+<td>bio</td>
+<td>See right</td>
+<td>Bio of the influencer</td>
+</tr>
+<tr>
+<td>followers</td>
+<td>674000</td>
+<td>Number of followers</td>
+</tr>
+<tr>
+<td>following</td>
+<td>674000</td>
+<td>Number of people the influencer follows</td>
+</tr>
+<tr>
+<td>rank</td>
+<td>1</td>
+<td>Rank of the influencer in the period specified</td>
 </tr>
 </tbody></table>
 
