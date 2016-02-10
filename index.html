@@ -41,7 +41,7 @@
 <p>All api requests need to be authorized with an API key, without which, an error will be returned. </p>
 
 <aside class="notice">
-You can request an API key by emailing faaez.ulhaq@teneostrategy.com and saying &lsquo;please.&rsquo;
+You can request an API key by emailing faaez.ulhaq@teneostrategy.com.
 </aside>
 
 <aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
@@ -239,7 +239,7 @@ You can request an API key by emailing faaez.ulhaq@teneostrategy.com and saying 
 </tr>
 </tbody></table>
 
-response-paramaters&quot;>Response Paramaters</h3>
+<h3 id="response-paramaters">Response Paramaters</h3>
 
 <table><thead>
 <tr>
@@ -289,6 +289,7 @@ response-paramaters&quot;>Response Paramaters</h3>
 </span><span class="p">{</span><span class="w">
 </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dummy Influencer"</span><span class="p">,</span><span class="w">
 </span><span class="nt">"handle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BarackObama"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"influencer_id"</span><span class="p">:</span><span class="s2">"twitter:BarackObama"</span><span class="p">,</span><span class="w">
 </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://twitter.com/BarackObama"</span><span class="p">,</span><span class="w">
 </span><span class="nt">"profile_img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://pbs.twimg.com/profile_images/451007105391022080/iu1f7brY.png"</span><span class="p">,</span><span class="w">
 </span><span class="nt">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This account is run by Organizing for Action staff. Tweets from the President are signed -bo."</span><span class="p">,</span><span class="w">
@@ -299,6 +300,7 @@ response-paramaters&quot;>Response Paramaters</h3>
 </span><span class="p">{</span><span class="w">
 </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dummy Influencer"</span><span class="p">,</span><span class="w">
 </span><span class="nt">"handle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BarackObama"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"influencer_id"</span><span class="p">:</span><span class="s2">"twitter:BarackObama"</span><span class="p">,</span><span class="w">
 </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://twitter.com/BarackObama"</span><span class="p">,</span><span class="w">
 </span><span class="nt">"profile_img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://pbs.twimg.com/profile_images/451007105391022080/iu1f7brY.png"</span><span class="p">,</span><span class="w">
 </span><span class="nt">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This account is run by Organizing for Action staff. Tweets from the President are signed -bo."</span><span class="p">,</span><span class="w">
@@ -311,7 +313,7 @@ response-paramaters&quot;>Response Paramaters</h3>
 
 <p>This endpoint retrieves all the influencers for this client.</p>
 
-http-request&quot;>HTTP Request</h3>
+<h3 id="http-request">HTTP Request</h3>
 
 <p><code class="prettyprint">GET http://dashapi.teneodigital.com:8080/influencers?client_id=&lt;id&gt;</code></p>
 
@@ -339,11 +341,16 @@ http-request&quot;>HTTP Request</h3>
 <td>&ldquo;2015-10-30&rdquo;</td>
 <td>End time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;</td>
 </tr>
+<tr>
+<td>count [optional - will default to latest available]</td>
+<td>10</td>
+<td>The number of top influencers being requested</td>
+</tr>
 </tbody></table>
 
 <h3 id="response-parameters">Response Parameters</h3>
 
-response-parameters&quot;>Response Parameters</h3>
+<h3 id="response-parameters">Response Parameters</h3>
 
 <table><thead>
 <tr>
@@ -361,6 +368,11 @@ response-parameters&quot;>Response Parameters</h3>
 <td>handle</td>
 <td>&ldquo;BarackObama&rdquo;</td>
 <td>Twitter handle of the influencer</td>
+</tr>
+<tr>
+<td>influencer_id</td>
+<td>&ldquo;twitter:BarackObama&rdquo;</td>
+<td>The unique ID of this influencer. Can be used to query the /news endpoint</td>
 </tr>
 <tr>
 <td>profile</td>
@@ -391,6 +403,142 @@ response-parameters&quot;>Response Parameters</h3>
 <td>rank</td>
 <td>1</td>
 <td>Rank of the influencer in the period specified</td>
+</tr>
+</tbody></table>
+
+<h2 id="news-endpoint">News Endpoint</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://dashapi.teneodigital.com:8080/news?client_id=&lt;XXXX&gt;&amp;"</span>
+  -H <span class="s2">"Authorization: &lt;API KEY&gt;"</span>
+</code></pre>
+
+<aside class="warning">If you&rsquo;re not using an API key, note that the server will return a 403 Forbidden error.</aside>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nt">"emailid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"450"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"full_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-- All strong countries should work w/ Russia to return stability, peace to Syria, Bahraini Foreign Minister Khalid bin Ahmed Al Khalifa says aft"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Staff"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bahrain Appreciates Russian Efforts to End Syria Crisis: Khalid"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bloomberg"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-02-08T17:07:27.000Z"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"monitor_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alexey Nikolaev"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"monitor_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alexey.nikolaev@teneostrategy.com"</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nt">"emailid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"430"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"full_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The bid by Sheikh Salman bin Ebrahim al-Khalifa of Bahrain to succeed Sepp Blatter as the president of FIFA received a big lift when the Confeder"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"THE ASSOCIATED PRESS"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Endorsement on FIFA Leader"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The New York Times"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-02-06T11:01:18.000Z"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"monitor_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vlad Shamanov"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"monitor_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vladimir.shamanov@teneostrategy.com"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"author_twitter_data"</span><span class="p">:{</span><span class="nt">"followers"</span><span class="p">:</span><span class="w"> </span><span class="mi">6848837</span><span class="p">,</span><span class="w"> </span><span class="nt">"following"</span><span class="p">:</span><span class="w"> </span><span class="mi">7298</span><span class="p">,</span><span class="w"> </span><span class="nt">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"News from The Associated Press, and a taste of the great journalism produced by AP members and customers. Managed 24/7 by these editors: http://t.co/BibaTN49vB"</span><span class="p">,</span><span class="err">…}</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nt">"full_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+</span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Justice withoug borders"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Staff"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Times"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://thetimes.co.uk/tto/opinion/leaders/article4454297.ece"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-29T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"latest_shares"</span><span class="p">:{</span><span class="nt">"StumbleUpon"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"Reddit"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"Delicious"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"Pinterest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"Twitter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="err">…}</span><span class="p">,</span><span class="w">
+</span><span class="nt">"shares_since_last"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span><span class="nt">"coding_exists"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="nt">"investigationsdetail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US Department of Justice"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"author_twitter_data"</span><span class="p">:{</span><span class="nt">"followers"</span><span class="p">:</span><span class="w"> </span><span class="mi">706880</span><span class="p">,</span><span class="w"> </span><span class="nt">"following"</span><span class="p">:</span><span class="w"> </span><span class="mi">593</span><span class="p">,</span><span class="w"> </span><span class="nt">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"News, comment and features from the Newspaper of the Year. Become a member at http://t.co/Kq4ItF8YYG Tweet @Times_CS for customer assistance"</span><span class="p">,</span><span class="err">…}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves the news content available for the requested client_id.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://dashapi.teneodigital.com:8080/news</code></p>
+
+<h3 id="get-paramaters">GET Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>client_id</td>
+<td>acme</td>
+<td>The unique identifier for the client that you&rsquo;re querying for, usually the company name.</td>
+</tr>
+<tr>
+<td>start_date [optional - will default to earliest available]</td>
+<td>&ldquo;2015-10-30&rdquo;</td>
+<td>Start time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;</td>
+</tr>
+<tr>
+<td>end_date [optional - will default to latest available]</td>
+<td>&ldquo;2015-10-30&rdquo;</td>
+<td>End time of data being requested, in the format &ldquo;YYYY-MM-DD&rdquo;</td>
+</tr>
+<tr>
+<td>influencer_id [optional - will default to all influencers]</td>
+<td>&ldquo;twitter:BarackObama&rdquo;</td>
+<td>ID of the influencer for whom the content is requested.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-paramaters">Response Paramaters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>date</td>
+<td>&ldquo;2015-12-29T11:10:36+0000&rdquo;</td>
+<td>The date for the data point. In case of a non-daily cadence, this will be the midpoint of the period aggregated for.</td>
+</tr>
+<tr>
+<td>title</td>
+<td>&ldquo;Justice withoug borders&rdquo;</td>
+<td>Title of the article</td>
+</tr>
+<tr>
+<td>author</td>
+<td>&ldquo;Staff&rdquo;</td>
+<td>Author&rsquo;s name</td>
+</tr>
+<tr>
+<td>source</td>
+<td>&ldquo;The Times&rdquo;</td>
+<td>The outlet where the article was published</td>
+</tr>
+<tr>
+<td>link</td>
+<td>&ldquo;http://thetimes.co.uk/tto/opinion/leaders/article4454297.ece&rdquo;</td>
+<td>URL of the article. Sometimes this is not available.</td>
+</tr>
+<tr>
+<td>latest_shares</td>
+<td>{&ldquo;StumbleUpon&rdquo;: 0, &ldquo;Reddit&rdquo;: 0, &ldquo;Delicious&rdquo;: 0, &ldquo;Pinterest&rdquo;: 0, &ldquo;Twitter&rdquo;: 0,…}</td>
+<td>Latest social media share data for the article.</td>
+</tr>
+<tr>
+<td>shares_since_last</td>
+<td>10</td>
+<td>Number of shares the article has gotten since last polled.</td>
+</tr>
+<tr>
+<td>author_twitter_data</td>
+<td>{&ldquo;followers&rdquo;: 706880, &ldquo;following&rdquo;: 593, &ldquo;bio&rdquo;: …}</td>
+<td>Author&rsquo;s Twitter data, if available.</td>
 </tr>
 </tbody></table>
 
